@@ -19,19 +19,21 @@ Frida's [releases](https://github.com/frida/frida/releases) page on GitHub.
 
 ## 2. Build your own binaries
 
-### Dependencies
-
-For running the Frida CLI tools, e.g. `frida`, `frida-ls-devices`, `frida-ps`,
-`frida-kill`, `frida-trace`, `frida-discover`, etc., you need Python plus a
-few packages:
-
-    pip install colorama prompt-toolkit pygments
-
-### Linux
+Run:
 
     make
 
-### macOS and iOS
+You may also invoke `./configure` first if you want to specify a `--prefix`, or
+any other options.
+
+### CLI tools
+
+For running the Frida CLI tools, e.g. `frida`, `frida-ls-devices`, `frida-ps`,
+`frida-kill`, `frida-trace`, `frida-discover`, etc., you need a few packages:
+
+    pip install colorama prompt-toolkit pygments
+
+### Apple OSes
 
 First make a trusted code-signing certificate. You can use the guide at
 https://sourceware.org/gdb/wiki/PermissionsDarwin in the sections
@@ -39,26 +41,19 @@ https://sourceware.org/gdb/wiki/PermissionsDarwin in the sections
 for code signing”. You can use the name `frida-cert` instead of `gdb-cert`
 if you'd like.
 
-Next export the name of the created certificate to the environment variables
-`MACOS_CERTID` and `IOS_CERTID`, and run `make`:
+Next export the name of the created certificate to relevant environment
+variables, and run `make`:
 
     export MACOS_CERTID=frida-cert
     export IOS_CERTID=frida-cert
+    export WATCHOS_CERTID=frida-cert
+    export TVOS_CERTID=frida-cert
     make
 
 To ensure that macOS accepts the newly created certificate, restart the
 `taskgated` daemon:
 
     sudo killall taskgated
-
-### Windows
-
-    frida.sln
-
-(Requires Visual Studio 2022.)
-
-See [https://frida.re/docs/building/](https://frida.re/docs/building/)
-for details.
 
 ## Learn more
 
